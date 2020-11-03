@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Finances</title>
+    <script src="{% static "js/test.js" %}" defer></script>
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+    {{ budget_form }}
+    <input type="text" name="test" maxlength="120" id="id_test">
+    <input name="budget" type="submit" value="SUBMIT">
+</form>
+<form method="post">
+    {% csrf_token %}
+    {{ expense_form }}
+    <input name="expense" type="submit" value="SUBMIT">
+</form>
+</body>
+</html>

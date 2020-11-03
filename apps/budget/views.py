@@ -8,3 +8,4 @@ class BudgetViewSet(ModelViewSet):
     queryset = Budget.objects.all()
     search_fields = ["name", "description"]
     filterset_fields = ["name", "description", "status"]
+

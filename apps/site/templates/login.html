@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+    <div class="flex flex-col items-center justify-center" style="height: 100vh">
+
+        <div class="border-2 border-blue-550 rounded-20 p-6 shadow-lg bg-blue-50 flex flex-col justify-center"
+             style="width: 25rem; max-width: 35rem;">
+            <h1 class="text-blue-550 text-3xl font-medium text-center mb-4">WELCOME!</h1>
+            <img src="{% static "images/login.svg" %}" alt="A man opening a door to enter" style="width: 50rem;">
+            <div class="mt-8">
+                {% if form.errors %}
+                    <p class="bg-blood-100 text-center text-blood-900 p-1 rounded-10">Your username and password
+                        didn't
+                        match. Please
+                        try
+                        again.</p>
+                {% endif %}
+                {% if next %}
+                    {% if user.is_authenticated %}
+                        <p class="bg-yellow-100 text-center text-yellow-800 p-1 rounded-10">Your account doesn't have
+                            access to this page. To proceed,
+                            please login with an account that has access.</p>
+                    {% else %}
+                        <p class="bg-yellow-100 text-center text-yellow-800 p-1 rounded-10">Please login to see this
+                            page.</p>
+                    {% endif %}
+                {% endif %}
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="py-2 text-blue-550 uppercase text-xl text-center">
+                            {% if field.errors %}
+                                <ul class="bg-red-100 p-2 rounded-lg">
+                                    {% for error in field.errors %}
+                                        <li class="text-red-600">{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <div class="flex w-full justify-center mt-2">
+
+                        <button type="submit"
+                                class="text-xl border-2 px-4
+                            rounded-lg hover:bg-blue-600 transition-all duration-200
+                            ease-linear bg-blue-550 text-white">
+                            LOGIN
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
